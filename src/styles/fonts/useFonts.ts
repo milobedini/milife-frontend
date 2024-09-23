@@ -1,43 +1,21 @@
-import { Inter } from 'next/font/google';
-import localFont from 'next/font/local';
+// eslint-disable-next-line camelcase
+import { Playfair_Display, Poppins } from 'next/font/google';
 
 /** Loading fonts from google */
-const inter = Inter({
+
+const playfair = Playfair_Display({
   subsets: ['latin']
 });
-
-/** Loading local fonts */
-const canelaWeb = localFont({
-  src: [
-    {
-      path: '../../../public/fonts/canela/medium/Canela-Medium-Web.woff2',
-      weight: '500',
-      style: 'normal'
-    }
-  ]
-});
-
-const canelaTextWeb = localFont({
-  src: [
-    {
-      path: '../../../public/fonts/canela/textMedium/CanelaText-Medium-Web.woff2',
-      weight: '500',
-      style: 'normal'
-    },
-    {
-      path: '../../../public/fonts/canela/textRegular/CanelaText-Regular-Web.woff2',
-      weight: '400',
-      style: 'normal'
-    }
-  ]
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
 
 /** Main function. */
 function useFonts() {
   return {
-    inter,
-    canelaWeb,
-    canelaTextWeb
+    playfair,
+    poppins
   };
 }
 

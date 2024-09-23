@@ -27,7 +27,8 @@ export const MuiButton = {
       boxShadow: 'none'
     },
     containedPrimary: {
-      color: palette.blue.contrastText,
+      color: palette.white.main,
+      backgroundColor: palette.gold.main,
       '&:hover': {
         backgroundColor: palette.blue.main
       },

@@ -61,10 +61,10 @@
     }
 
     $map:
-      768px SM purple,
-      1024px MD blue,
-      1280px LG orange,
-      1440px XL green;
+      768px SM teal,
+      1024px MD orange,
+      1280px LG lavender,
+      1440px XL navy;
     @include before-after() {
       @each $breakpoint, $content, $color in $map {
         @media (min-width: $breakpoint) {
@@ -77,6 +77,24 @@
 }
 
 html {
-  @apply text-text-primary subpixel-antialiased;
+  @apply bg-background subpixel-antialiased;
   scroll-padding-top: var(--scroll-padding-top, 0);
+}
+
+main {
+  @apply bg-background text-white;
+}
+
+h1 {
+  @apply typo-playfair-48-1;
+}
+h2 {
+  @apply typo-playfair-34-1;
+}
+h3 {
+  @apply typo-playfair-28-1;
+}
+
+p {
+  @apply typo-poppins-12-1;
 }
