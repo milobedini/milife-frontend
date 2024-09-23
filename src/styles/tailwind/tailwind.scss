@@ -77,6 +77,6 @@
 }
 
 html {
-  // @apply text-text-primary subpixel-antialiased;
+  @apply text-text-primary subpixel-antialiased;
   scroll-padding-top: var(--scroll-padding-top, 0);
 }
