@@ -34,7 +34,7 @@ function Header() {
 
   if (headerRoutes.map((route) => route.link).includes(router.pathname) || router.pathname === '/') {
     return (
-      <header className="component:Header shadow-main relative top-0 z-20 h-16 bg-background" id="back-to-top-anchor">
+      <header className="component:Header relative top-0 z-20 h-16 bg-background shadow-main" id="back-to-top-anchor">
         <div className="container flex h-full items-center justify-between text-center">
           <div className="flex items-center gap-8">
             <Link href="/">

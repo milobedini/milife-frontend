@@ -4,13 +4,17 @@ import imageBalance from 'public/images/landing/balance.webp';
 import imageConsistency from 'public/images/landing/consistency.webp';
 import imageFocus from 'public/images/landing/focus.webp';
 import imageGrowth from 'public/images/landing/growth.webp';
-import ScrollTop from '../ScrollToTop';
+import ScrollTop from 'src/components/ScrollToTop';
+import { useGetTasksQuery } from 'src/graphql/task.api';
 
 function HomePageTemplate() {
+  const { data } = useGetTasksQuery();
+  console.log(data);
+
   return (
     <div className="container py-4">
       {/* Top Panel */}
-      <div className="shadow-diffuse mb-2 flex h-[280px] w-full p-2">
+      <div className="mb-2 flex h-[280px] w-full p-2 shadow-diffuse">
         <div className="basis-2/3">
           {/* Develop */}
           <h2>Habits</h2>
@@ -34,7 +38,7 @@ function HomePageTemplate() {
       </div>
       {/* Bottom Panel - Hero Images and why you should sign up */}
       {/* Activities */}
-      <div className="shadow-prominent flex w-full flex-col gap-4 md:flex-row">
+      <div className="flex w-full flex-col gap-4 shadow-prominent md:flex-row">
         <div className="flex w-full flex-col">
           <div className="p-2">
             <Image priority alt="focus-image" src={imageFocus} placeholder="blur" />
