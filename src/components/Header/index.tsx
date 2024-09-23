@@ -1,11 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import logoImage from 'public/images/logo-basic.png';
+
 const headerRoutes = [
-  {
-    label: 'Home',
-    link: '/'
-  },
   {
     label: 'About',
     link: '/about'
@@ -33,20 +32,23 @@ const authRoutes = [
 function Header() {
   const router = useRouter();
 
-  if (headerRoutes.map((route) => route.link).includes(router.pathname)) {
+  if (headerRoutes.map((route) => route.link).includes(router.pathname) || router.pathname === '/') {
     return (
-      <header className="component:Header border-2 border-b-secondary-200 bg-background shadow-2xl shadow-secondary-100">
-        <div className="container flex justify-between">
-          <div className="flex gap-8">
+      <header className="component:Header shadow-main relative top-0 z-20 h-16 bg-background" id="back-to-top-anchor">
+        <div className="container flex h-full items-center justify-between text-center">
+          <div className="flex items-center gap-8">
+            <Link href="/">
+              <Image priority alt="logo-image" src={logoImage} placeholder="blur" height={52} />
+            </Link>
             {headerRoutes.map((route) => (
-              <Link key={route.label} href={route.link} className="text-white hover:text-primary">
+              <Link key={route.label} href={route.link} className="typo-poppins-16-2 text-white hover:text-primary">
                 {route.label}
               </Link>
             ))}
           </div>
-          <div className="flex gap-8">
+          <div className="flex items-center gap-8">
             {authRoutes.map((route) => (
-              <Link key={route.label} href={route.link} className="text-white hover:text-primary">
+              <Link key={route.label} href={route.link} className="typo-poppins-16-2 text-white hover:text-primary">
                 {route.label}
               </Link>
             ))}

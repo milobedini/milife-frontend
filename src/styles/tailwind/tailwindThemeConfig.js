@@ -26,7 +26,7 @@ module.exports = {
     },
     colors: {
       background: {
-        DEFAULT: '#121212'
+        DEFAULT: '#212121'
       },
       primary: {
         DEFAULT: '#BB86FC',
@@ -77,7 +77,17 @@ module.exports = {
       },
       white: {
         DEFAULT: '#FFFFFF'
+      },
+      black: {
+        DEFAULT: '#000000'
       }
+      // shadow: {
+      //   main: 'rgba(0, 0, 0, 0.5)',
+      //   prominent: 'rgba(0, 0, 0, 0.6)',
+      //   soft: 'rgba(0, 0, 0, 0.3)',
+      //   verySoft: 'rgba(0, 0, 0, 0.5)',
+      //   diffuse: 'rgba(0, 0, 0, 0.4)'
+      // }
     },
     extend: {
       spacing: {
@@ -103,48 +113,13 @@ module.exports = {
         primaryMed: '0.74',
         primaryLow: '0.38'
       },
-      typography: ({ theme }) => ({
-        DEFAULT: {
-          css: {
-            h1: {
-              fontFamily: theme('fontFamily.poppins'),
-              fontSize: '36px',
-              fontWeight: '600',
-              color: theme('colors.navy.DEFAULT'),
-              marginBottom: theme('spacing.4')
-            },
-            h2: {
-              fontFamily: theme('fontFamily.poppins'),
-              fontSize: '30px',
-              fontWeight: '500',
-              color: theme('colors.navy.DEFAULT'),
-              marginBottom: theme('spacing.3')
-            },
-            p: {
-              fontFamily: theme('fontFamily.poppins'),
-              fontSize: '18px',
-              lineHeight: '1.6',
-              color: theme('colors.navy.light'),
-              marginBottom: theme('spacing.3')
-            },
-            blockquote: {
-              fontFamily: theme('fontFamily.playfair'),
-              fontSize: '24px',
-              fontStyle: 'italic',
-              color: theme('colors.lavender.dark'),
-              borderLeft: `4px solid ${theme('colors.teal.DEFAULT')}`,
-              paddingLeft: theme('spacing.4')
-            },
-            a: {
-              color: theme('colors.teal.DEFAULT'),
-              textDecoration: 'underline',
-              '&:hover': {
-                color: theme('colors.orange.DEFAULT')
-              }
-            }
-          }
-        }
-      })
+      boxShadow: {
+        main: '0 2px 4px rgba(0, 0, 0, 0.5)',
+        prominent: '0 4px 8px rgba(0, 0, 0, 0.6)',
+        soft: '0 1px 3px rgba(0, 0, 0, 0.3)',
+        verySoft: '0 1px 2px rgba(0, 0, 0, 0.5)',
+        diffuse: '0 8px 16px rgba(0, 0, 0, 0.4)'
+      }
     }
   },
   plugins: [ContainerMaxWidth, MuiTypography, ContainerOffsetSize, Typography]

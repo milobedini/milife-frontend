@@ -86,15 +86,19 @@ main {
 }
 
 h1 {
-  @apply typo-playfair-48-1;
+  @apply typo-playfair-60-1;
 }
 h2 {
-  @apply typo-playfair-34-1;
+  @apply typo-playfair-60-1;
 }
 h3 {
   @apply typo-playfair-28-1;
 }
 
 p {
-  @apply typo-poppins-12-1;
+  @apply typo-poppins-16-2;
+}
+ul,
+li {
+  @apply typo-poppins-16-2;
 }
