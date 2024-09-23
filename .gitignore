@@ -58,4 +58,3 @@ schema.graphql
 #Cypress
 cypress/videos/*
 .hintrc
-public/images
