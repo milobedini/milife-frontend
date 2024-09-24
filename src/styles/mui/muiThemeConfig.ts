@@ -1,8 +1,6 @@
 import { createTheme, SimplePaletteColorOptions, ThemeOptions } from '@mui/material/styles';
-import { ColorPartial } from '@mui/material/styles/createPalette';
 import { palette } from 'src/styles/mui/theme/palette';
 import { breakpoints } from './breakpoints';
-import * as components from './components';
 import { typography } from './typography';
 
 /**
@@ -24,19 +22,12 @@ type MuiThemeConfig = typeof muiThemeConfig;
 
 /** Brix theme config */
 interface BrixPalette {
-  clay: SimplePaletteColorOptions & ColorPartial;
-  gold: SimplePaletteColorOptions;
-  blue: SimplePaletteColorOptions;
-  red: SimplePaletteColorOptions;
   black: SimplePaletteColorOptions;
   white: SimplePaletteColorOptions;
+  bgColor: SimplePaletteColorOptions;
 }
 
 interface BrixColorOverrides {
-  clay: true;
-  gold: true;
-  blue: true;
-  red: true;
   black: true;
   white: true;
 }
@@ -54,12 +45,52 @@ const customThemeConfig: ThemeOptions = {
   // https://mui.com/material-ui/customization/theme-components/
   spacing: 8,
   breakpoints,
-  components,
   palette,
   typography
 };
 
-const muiThemeConfig = createTheme(customThemeConfig);
+const muiThemeConfig = createTheme({
+  ...customThemeConfig,
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          // borderRadius: 0,
+          // color: 'white'
+          // background: 'white'
+        }
+      }
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    }
+  }
+});
 
 /** Exports. */
 export { type BrixColorOverrides, type BrixPalette, type MuiThemeConfig, muiThemeConfig };

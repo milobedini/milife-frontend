@@ -21,7 +21,7 @@ const authRoutes = [
   },
   {
     label: 'Register',
-    link: '/register'
+    link: '/signup'
   },
   {
     label: 'Logout',

@@ -81,13 +81,6 @@ module.exports = {
       black: {
         DEFAULT: '#000000'
       }
-      // shadow: {
-      //   main: 'rgba(0, 0, 0, 0.5)',
-      //   prominent: 'rgba(0, 0, 0, 0.6)',
-      //   soft: 'rgba(0, 0, 0, 0.3)',
-      //   verySoft: 'rgba(0, 0, 0, 0.5)',
-      //   diffuse: 'rgba(0, 0, 0, 0.4)'
-      // }
     },
     extend: {
       spacing: {

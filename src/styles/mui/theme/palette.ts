@@ -1,62 +1,62 @@
-import { palette as defaultPalette } from 'src/styles/mui/muiDefaultTheme';
-
-const { common } = defaultPalette;
-
 export const brixColors = {
-  clay: {
-    main: '#EFEDEA',
-    light: '#F9F8F7',
-    dark: '#A8A29B',
-    contrastText: common.black,
-    100: '#F9F8F7',
-    200: '#F5F4F2',
-    300: '#EFEDEA',
-    400: '#EBE8E5',
-    500: '#D2CCC5',
-    600: '#A8A29B'
+  bgColor: {
+    main: '#212121'
   },
-  blue: {
-    main: '#374753',
-    light: '#E9EFF3',
-    dark: '#131820',
-    contrastText: common.white
+  primary: {
+    main: '#BB86FC',
+    50: '#F2E7FE',
+    100: '#DBB2FF',
+    200: '#BB86FC',
+    300: '#985EFF',
+    400: '#7F39FB',
+    500: '#6200EE',
+    600: '#5600E8',
+    700: '#3700B3',
+    800: '#30009C',
+    900: '#23036A',
+    text: '#000000',
+    textAlt: '#FFFFFF'
   },
-  gold: {
-    main: '#84691F',
-    secondary: '#B08F3B',
-    light: '#D9C49D',
-    dark: '#8B6C33',
-    contrastText: common.white
+  secondary: {
+    main: '#03DAC5',
+    50: '#C8FFF4',
+    100: '#70EFDE',
+    200: '#03DAC5',
+    300: '#00C4B4',
+    400: '#00B3A6',
+    500: '#01A299',
+    600: '#019592',
+    700: '#018786',
+    800: '#017374',
+    900: '#005457',
+    text: '#000000'
   },
-  red: {
-    main: '#831616',
-    light: '#9B4444',
-    dark: '#5B0F0F',
-    tint: '#F0E3E3',
-    contrastText: common.white
+  outline: {
+    main: '#FFFFFF12'
   },
-  success: {
-    main: '#629B06',
-    light: '#E6EFD7',
-    dark: '#236600',
-    contrastText: common.white
+  error: {
+    main: '#CF6679'
   },
-  black: {
-    main: common.black,
-    light: '#333333',
-    dark: '#000000',
-    contrastText: common.white
+  gray: {
+    main: '#E0E0E0',
+    100: '#F5F5F5',
+    200: '#EEEEEE',
+    300: '#E0E0E0',
+    400: '#BDBDBD',
+    500: '#9E9E9E',
+    600: '#757575',
+    700: '#616161',
+    800: '#424242',
+    900: '#212121'
   },
   white: {
-    main: common.white,
-    light: '#FFFFFF',
-    dark: '#FFFFFF',
-    contrastText: common.black
+    main: '#FFFFFF'
+  },
+  black: {
+    main: '#000000'
   }
 };
 
 export const palette = {
-  primary: brixColors.black,
-  secondary: brixColors.clay,
   ...brixColors
 };
