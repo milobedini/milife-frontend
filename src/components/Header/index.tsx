@@ -12,6 +12,10 @@ const headerRoutes = [
   {
     label: 'Contact',
     link: '/contact'
+  },
+  {
+    label: 'Dashboard',
+    link: '/dashboard'
   }
 ];
 const authRoutes = [

@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Password is required').max(50, 'Password is too long')
 });
 
-function SignUp() {
+function SignUpForm() {
   const router = useRouter();
   const [registerUser, { isError, error, isLoading, isSuccess }] = useRegisterUserMutation();
 
@@ -26,7 +26,6 @@ function SignUp() {
       password: ''
     },
     onSubmit: (input) => {
-      console.log('input', input);
       registerUser(input);
     }
   });
@@ -40,7 +39,7 @@ function SignUp() {
 
   useEffect(() => {
     if (isError) {
-      console.log(error);
+      // console.log(error);
     }
   }, [isError, error]);
 
@@ -105,4 +104,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpForm;

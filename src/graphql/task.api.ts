@@ -2,7 +2,7 @@ import { Task } from 'src/types/resolvers-types';
 import { baseApi } from './api';
 import { queryAllTasks } from './queries';
 
-const taskApi = baseApi.injectEndpoints({
+export const taskApi = baseApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     getTasks: builder.query<Task[], void>({

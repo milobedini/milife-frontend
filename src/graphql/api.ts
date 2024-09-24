@@ -1,11 +1,26 @@
-import { ClientError, request } from 'graphql-request';
-import { createApi } from '@reduxjs/toolkit/query/react';
+// src/graphql/api.ts
+import { ClientError, GraphQLClient } from 'graphql-request';
+import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
+import type { RootState } from 'src/store';
 
 const graphqlBaseQuery =
-  ({ baseUrl }: { baseUrl: string }) =>
-  async ({ body }: { body: string }) => {
+  ({
+    baseUrl
+  }: {
+    baseUrl: string;
+  }): BaseQueryFn<{ body: string; variables?: Record<string, any> }, unknown, unknown> =>
+  async ({ body, variables }, { getState }) => {
     try {
-      const result = await request(baseUrl, body);
+      const { token } = (getState() as RootState).auth;
+      const headers: Record<string, string> = {};
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const client = new GraphQLClient(baseUrl, { headers });
+      const result = await client.request(body, variables);
+
       return { data: result };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -16,10 +31,8 @@ const graphqlBaseQuery =
   };
 
 const baseApi = createApi({
+  baseQuery: graphqlBaseQuery({ baseUrl: 'http://localhost:4000/graphql' }),
   tagTypes: ['User', 'Tasks'],
-  baseQuery: graphqlBaseQuery({
-    baseUrl: 'http://localhost:4000/graphql'
-  }),
   endpoints: () => ({})
 });
 

@@ -1,17 +1,17 @@
 import React from 'react';
-import SignUpForm from 'src/components/Forms/SignUpForm';
+import SignInForm from 'src/components/Forms/SignInForm';
 
-const signup = () => (
+const login = () => (
   <div className="relative">
     {/* Image */}
     <div className="container relative py-4 sm:py-6">
       <div>
         <div className="pb-4 shadow-prominent">
-          <SignUpForm />
+          <SignInForm />
         </div>
       </div>
     </div>
   </div>
 );
 
-export default signup;
+export default login;
