@@ -58,6 +58,15 @@ export const queryMe = gql`
 `;
 
 /** Mutations. */
+export const mutationUserSignup = gql`
+  mutation SignUp($email: String!, $name: String!, $password: String!) {
+    signup(email: $email, name: $name, password: $password) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 /** Tasks. */
 

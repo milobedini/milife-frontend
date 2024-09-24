@@ -35,9 +35,4 @@ function ScrollTop() {
   );
 }
 
-// Default props
-ScrollTop.defaultProps = {
-  window: undefined,
-  children: null
-};
 export default ScrollTop;

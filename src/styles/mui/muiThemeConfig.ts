@@ -55,23 +55,17 @@ const muiThemeConfig = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          // borderRadius: 0,
-          // color: 'white'
-          // background: 'white'
-        }
-      }
-    },
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          color: 'white'
+          // boxShadow: '0 4px 8px rgba(1,115,116, .6)'
         }
       }
     },
     MuiInputBase: {
       styleOverrides: {
         root: {
-          color: 'white'
+          color: 'white',
+          borderWidth: '1px',
+          borderColor: palette.secondary.main,
+          boxShadow: '0 4px 8px rgba(1,115,116, .6)'
         }
       }
     },
@@ -85,7 +79,12 @@ const muiThemeConfig = createTheme({
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          color: 'white'
+          color: 'white',
+          '&.Mui-error': {
+            '&.MuiFormHelperText-root.Mui-error': {
+              color: 'palette.error.main'
+            }
+          }
         }
       }
     }

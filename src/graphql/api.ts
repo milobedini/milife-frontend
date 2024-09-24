@@ -15,27 +15,12 @@ const graphqlBaseQuery =
     }
   };
 
-// export const api = createApi({
-//   baseQuery: graphqlBaseQuery({
-//     baseUrl: 'http://localhost:4000/graphql'
-//   }),
-//   reducerPath: 'api',
-//   endpoints: (builder) => ({
-//     getTasks: builder.query<Task[], void>({
-//       query: () => ({
-//         body: queryAllTasks
-//       })
-//     })
-//   })
-// });
 const baseApi = createApi({
   tagTypes: ['User', 'Tasks'],
   baseQuery: graphqlBaseQuery({
     baseUrl: 'http://localhost:4000/graphql'
   }),
-  // reducerPath: 'api',
   endpoints: () => ({})
 });
 
-// export const { useGetTasksQuery } = api;
 export { baseApi };

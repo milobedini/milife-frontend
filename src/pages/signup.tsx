@@ -6,7 +6,7 @@ const signup = () => (
     {/* Image */}
     <div className="container relative py-4 sm:py-6">
       <div>
-        <div className="shadow-prominent">
+        <div className="pb-4 shadow-prominent">
           <SignUp />
         </div>
       </div>
