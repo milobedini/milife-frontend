@@ -8,6 +8,7 @@ function DashboardTemplate() {
   const { data, isError, isLoading } = useMyTaskCompletionsQuery({});
 
   if (isError || isLoading || !data) {
+    console.log('rendering error states');
     return <ErrorStates apiError={isError} apiLoading={isLoading} noContent={!data} />;
   }
 

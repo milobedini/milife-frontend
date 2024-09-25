@@ -24,9 +24,14 @@ const graphqlBaseQuery =
       return { data: result };
     } catch (error) {
       if (error instanceof ClientError) {
-        return { error: { status: error.response.status, data: error } };
+        return {
+          error: {
+            status: error.response.status,
+            data: error.response.errors?.map((err: any) => err.message).join('') || 'Unknown error'
+          }
+        };
       }
-      return { error: { status: 500, data: error } };
+      return { error: { status: 500, data: (error as Error).message } };
     }
   };
 
