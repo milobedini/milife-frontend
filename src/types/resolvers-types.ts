@@ -43,11 +43,11 @@ export type MessageReturn = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMyTask?: Maybe<Task>;
+  addMyTask: UserTask;
   completeTask: TaskCompletion;
   createTask: Task;
   login: AuthPayload;
-  removeMyTask?: Maybe<Task>;
+  removeMyTask: MessageReturn;
   signup: User;
   uncompleteTask: MessageReturn;
 };
@@ -58,7 +58,7 @@ export type MutationAddMyTaskArgs = {
 
 export type MutationCompleteTaskArgs = {
   date: Scalars['String']['input'];
-  taskId: Scalars['ID']['input'];
+  userTaskId: Scalars['ID']['input'];
 };
 
 export type MutationCreateTaskArgs = {
@@ -83,40 +83,38 @@ export type MutationSignupArgs = {
 
 export type MutationUncompleteTaskArgs = {
   date: Scalars['String']['input'];
-  taskId: Scalars['ID']['input'];
+  userTaskId: Scalars['ID']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
   allTasks: Array<Task>;
   me: User;
-  myTaskCompletions: Array<TaskCompletion>;
-  myTasks: Array<Task>;
   task?: Maybe<Task>;
+  userCompletions: Array<TaskCompletion>;
+  userTasks: Array<UserTask>;
 };
 
 export type QueryAllTasksArgs = {
   filters?: InputMaybe<Array<InputMaybe<FilterInput>>>;
 };
 
-export type QueryMyTaskCompletionsArgs = {
-  endDate?: InputMaybe<Scalars['String']['input']>;
-  startDate?: InputMaybe<Scalars['String']['input']>;
-  taskId: Scalars['ID']['input'];
-};
-
 export type QueryTaskArgs = {
   id: Scalars['ID']['input'];
 };
 
+export type QueryUserCompletionsArgs = {
+  endDate?: InputMaybe<Scalars['String']['input']>;
+  startDate?: InputMaybe<Scalars['String']['input']>;
+  taskId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Task = {
   __typename?: 'Task';
-  completions?: Maybe<Array<TaskCompletion>>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  users?: Maybe<Array<User>>;
 };
 
 export type TaskCompletion = {
@@ -124,10 +122,7 @@ export type TaskCompletion = {
   completed: Scalars['Boolean']['output'];
   date: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  task: Task;
-  taskId: Scalars['ID']['output'];
-  user: User;
-  userId: Scalars['ID']['output'];
+  userTask: UserTask;
 };
 
 export type User = {
@@ -136,7 +131,15 @@ export type User = {
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  tasks?: Maybe<Array<Task>>;
+  userTasks?: Maybe<Array<UserTask>>;
+};
+
+export type UserTask = {
+  __typename?: 'UserTask';
+  days: Array<Scalars['Int']['output']>;
+  id: Scalars['ID']['output'];
+  task: Task;
+  userId: Scalars['ID']['output'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -216,6 +219,7 @@ export type ResolversTypes = {
   FilterInput: FilterInput;
   FilterOperation: FilterOperation;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   MessageReturn: ResolverTypeWrapper<MessageReturn>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -223,6 +227,7 @@ export type ResolversTypes = {
   Task: ResolverTypeWrapper<Task>;
   TaskCompletion: ResolverTypeWrapper<TaskCompletion>;
   User: ResolverTypeWrapper<User>;
+  UserTask: ResolverTypeWrapper<UserTask>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -231,6 +236,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   FilterInput: FilterInput;
   ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   MessageReturn: MessageReturn;
   Mutation: {};
   Query: {};
@@ -238,6 +244,7 @@ export type ResolversParentTypes = {
   Task: Task;
   TaskCompletion: TaskCompletion;
   User: User;
+  UserTask: UserTask;
 };
 
 export type AuthPayloadResolvers<
@@ -261,17 +268,12 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  addMyTask?: Resolver<
-    Maybe<ResolversTypes['Task']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationAddMyTaskArgs, 'id'>
-  >;
+  addMyTask?: Resolver<ResolversTypes['UserTask'], ParentType, ContextType, RequireFields<MutationAddMyTaskArgs, 'id'>>;
   completeTask?: Resolver<
     ResolversTypes['TaskCompletion'],
     ParentType,
     ContextType,
-    RequireFields<MutationCompleteTaskArgs, 'date' | 'taskId'>
+    RequireFields<MutationCompleteTaskArgs, 'date' | 'userTaskId'>
   >;
   createTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'name'>>;
   login?: Resolver<
@@ -281,7 +283,7 @@ export type MutationResolvers<
     RequireFields<MutationLoginArgs, 'email' | 'password'>
   >;
   removeMyTask?: Resolver<
-    Maybe<ResolversTypes['Task']>,
+    ResolversTypes['MessageReturn'],
     ParentType,
     ContextType,
     RequireFields<MutationRemoveMyTaskArgs, 'id'>
@@ -296,7 +298,7 @@ export type MutationResolvers<
     ResolversTypes['MessageReturn'],
     ParentType,
     ContextType,
-    RequireFields<MutationUncompleteTaskArgs, 'date' | 'taskId'>
+    RequireFields<MutationUncompleteTaskArgs, 'date' | 'userTaskId'>
   >;
 };
 
@@ -306,26 +308,24 @@ export type QueryResolvers<
 > = {
   allTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType, Partial<QueryAllTasksArgs>>;
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  myTaskCompletions?: Resolver<
+  task?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<QueryTaskArgs, 'id'>>;
+  userCompletions?: Resolver<
     Array<ResolversTypes['TaskCompletion']>,
     ParentType,
     ContextType,
-    RequireFields<QueryMyTaskCompletionsArgs, 'taskId'>
+    Partial<QueryUserCompletionsArgs>
   >;
-  myTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
-  task?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<QueryTaskArgs, 'id'>>;
+  userTasks?: Resolver<Array<ResolversTypes['UserTask']>, ParentType, ContextType>;
 };
 
 export type TaskResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']
 > = {
-  completions?: Resolver<Maybe<Array<ResolversTypes['TaskCompletion']>>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  users?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -336,10 +336,7 @@ export type TaskCompletionResolvers<
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  task?: Resolver<ResolversTypes['Task'], ParentType, ContextType>;
-  taskId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  userTask?: Resolver<ResolversTypes['UserTask'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -351,7 +348,18 @@ export type UserResolvers<
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  tasks?: Resolver<Maybe<Array<ResolversTypes['Task']>>, ParentType, ContextType>;
+  userTasks?: Resolver<Maybe<Array<ResolversTypes['UserTask']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserTaskResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserTask'] = ResolversParentTypes['UserTask']
+> = {
+  days?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  task?: Resolver<ResolversTypes['Task'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -363,4 +371,5 @@ export type Resolvers<ContextType = any> = {
   Task?: TaskResolvers<ContextType>;
   TaskCompletion?: TaskCompletionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserTask?: UserTaskResolvers<ContextType>;
 };

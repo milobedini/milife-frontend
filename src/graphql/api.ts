@@ -32,7 +32,7 @@ const graphqlBaseQuery =
 
 const baseApi = createApi({
   baseQuery: graphqlBaseQuery({ baseUrl: 'http://localhost:4000/graphql' }),
-  tagTypes: ['User', 'Tasks'],
+  tagTypes: ['User', 'Tasks', 'UserTasks'],
   endpoints: () => ({})
 });
 

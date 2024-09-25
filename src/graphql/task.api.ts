@@ -1,6 +1,6 @@
-import { MutationAddMyTaskArgs, MutationRemoveMyTaskArgs, Task } from 'src/types/resolvers-types';
+import { MutationAddMyTaskArgs, MutationRemoveMyTaskArgs, Task, UserTask } from 'src/types/resolvers-types';
 import { baseApi } from './api';
-import { mutationAddTask, mutationRemoveTask, queryAllTasks } from './queries';
+import { mutationAddTask, mutationRemoveTask, queryAllTasks, queryMyTasks } from './queries';
 
 export const taskApi = baseApi.injectEndpoints({
   overrideExisting: false,
@@ -12,21 +12,28 @@ export const taskApi = baseApi.injectEndpoints({
       providesTags: ['Tasks'],
       transformResponse: (response: { allTasks: Task[] }) => response.allTasks
     }),
+    getUserTasks: builder.query<UserTask[], void>({
+      query: () => ({
+        body: queryMyTasks
+      }),
+      providesTags: ['UserTasks'],
+      transformResponse: (response: { userTasks: UserTask[] }) => response.userTasks
+    }),
     addMyTask: builder.mutation<Task, MutationAddMyTaskArgs>({
       query: (variables) => ({
         body: mutationAddTask,
         variables
       }),
-      invalidatesTags: ['Tasks', 'User']
+      invalidatesTags: ['UserTasks']
     }),
     removeMyTask: builder.mutation<Task, MutationRemoveMyTaskArgs>({
       query: (variables) => ({
         body: mutationRemoveTask,
         variables
       }),
-      invalidatesTags: ['Tasks', 'User']
+      invalidatesTags: ['UserTasks']
     })
   })
 });
 
-export const { useGetTasksQuery, useAddMyTaskMutation, useRemoveMyTaskMutation } = taskApi;
+export const { useGetTasksQuery, useAddMyTaskMutation, useRemoveMyTaskMutation, useGetUserTasksQuery } = taskApi;

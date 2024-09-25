@@ -7,9 +7,6 @@ export const GenericTasks = gql`
     name
     description
     image
-    users {
-      id
-    }
   }
 `;
 
@@ -18,8 +15,11 @@ export const Completions = gql`
     id
     date
     completed
-    task {
-      name
+    userTask {
+      task {
+        name
+        id
+      }
     }
   }
 `;
@@ -30,9 +30,11 @@ export const DetailedUser = gql`
     id
     name
     email
-    tasks {
-      name
-      id
+    userTasks {
+      task {
+        id
+        name
+      }
     }
     completions {
       ...Completions
@@ -54,24 +56,12 @@ export const queryAllTasks = gql`
 
 export const queryMyTasks = gql`
   query MyTasks {
-    myTasks {
-      name
-      id
-    }
-  }
-`;
-
-export const queryMyTaskCompletions = gql`
-  query MyTaskCompletions {
-    myTaskCompletions(taskId: "66eaf0215be1c5c004651914") {
+    userTasks {
       task {
         name
+        id
       }
-      date
-      user {
-        name
-      }
-      completed
+      id
     }
   }
 `;
@@ -116,10 +106,10 @@ export const mutationAddTask = gql`
   mutation AddMyTask($id: ID!) {
     addMyTask(id: $id) {
       id
-      name
-      users {
+      task {
         name
       }
+      userId
     }
   }
 `;
@@ -127,8 +117,7 @@ export const mutationAddTask = gql`
 export const mutationRemoveTask = gql`
   mutation RemoveMyTask($id: ID!) {
     removeMyTask(id: $id) {
-      id
-      name
+      message
     }
   }
 `;
