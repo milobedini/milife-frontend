@@ -18,7 +18,6 @@ function ActivityPickerCard({ task, saved }: ActivityPickerCardProps) {
   const handleAddTask = async () => {
     try {
       await addTask({ id: task.id });
-      //   Do other stuff
     } catch (error) {
       // console.error(error);
     }
@@ -27,6 +26,7 @@ function ActivityPickerCard({ task, saved }: ActivityPickerCardProps) {
   const handleRemoveTask = async () => {
     try {
       await removeTask({ id: task.id });
+
       //   Do other stuff
     } catch (error) {
       // console.error(error);

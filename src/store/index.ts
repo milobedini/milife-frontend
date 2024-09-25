@@ -2,7 +2,9 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { baseApi } from 'src/graphql/api';
+import { notificationMiddleware } from './middleware/notifications';
 import authReducer from './slices/authSlice';
+import { notificationSlice } from './slices/notificationSlice';
 
 const persistConfig = {
   key: 'iws',
@@ -15,15 +17,16 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
-    auth: persistedAuthReducer
+    auth: persistedAuthReducer,
+    notification: notificationSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore redux-persist actions
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE', 'persist/PURGE', 'persist/FLUSH']
       }
-    }).concat(baseApi.middleware)
+    }).concat(baseApi.middleware, notificationMiddleware)
 });
 
 export const persistedStore = persistStore(store);

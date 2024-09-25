@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from 'src/components/Header';
+import Notifications from '../Notifications';
 
 type LayoutProps = {
   children: ReactNode;
@@ -10,6 +11,7 @@ function Layout(props: LayoutProps) {
     <div>
       <Header />
       <main>{props.children}</main>
+      <Notifications />
       {/* Footer */}
     </div>
   );
