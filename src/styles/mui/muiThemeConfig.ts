@@ -87,6 +87,17 @@ const muiThemeConfig = createTheme({
           }
         }
       }
+    },
+    MuiButton: {
+      styleOverrides: {
+        containedError: {
+          backgroundColor: 'error', // Custom error background color
+          color: '#000000', // Black text color
+          '&:hover': {
+            backgroundColor: '#d32f2f' // Darker color on hover (you can adjust this)
+          }
+        }
+      }
     }
   }
 });

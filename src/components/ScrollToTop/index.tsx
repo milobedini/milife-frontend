@@ -27,7 +27,7 @@ function ScrollTop() {
   return (
     <Fade in={trigger}>
       <Box onClick={handleClick} role="presentation" sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-        <Fab size="small" aria-label="scroll back to top">
+        <Fab size="small" aria-label="scroll back to top" color={'secondary'}>
           <KeyboardArrowUpIcon />
         </Fab>
       </Box>

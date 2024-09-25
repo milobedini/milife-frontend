@@ -6,6 +6,10 @@ export const GenericTasks = gql`
     id
     name
     description
+    image
+    users {
+      id
+    }
   }
 `;
 
@@ -87,9 +91,9 @@ export const queryMe = gql`
 export const mutationUserSignup = gql`
   mutation SignUp($email: String!, $name: String!, $password: String!) {
     signup(email: $email, name: $name, password: $password) {
-      id
       name
       email
+      id
     }
   }
 `;
@@ -101,11 +105,32 @@ export const mutationUserLogin = gql`
       user {
         name
         email
+        id
       }
     }
   }
 `;
 
 /** Tasks. */
+export const mutationAddTask = gql`
+  mutation AddMyTask($id: ID!) {
+    addMyTask(id: $id) {
+      id
+      name
+      users {
+        name
+      }
+    }
+  }
+`;
+
+export const mutationRemoveTask = gql`
+  mutation RemoveMyTask($id: ID!) {
+    removeMyTask(id: $id) {
+      id
+      name
+    }
+  }
+`;
 
 /** Users. */

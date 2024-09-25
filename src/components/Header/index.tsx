@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { authRoutes, mainRoutes } from 'src/data/routes';
 import { baseApi } from 'src/graphql/api';
-import { persistedStore, RootState } from 'src/store';
+import { persistedStore } from 'src/store';
 import { logout, selectCurrentUser } from 'src/store/slices/authSlice';
 import { getFilteredAuthRoutes } from 'src/utils/routeUtils';
 
@@ -16,7 +16,7 @@ function Header() {
   // Dependencies
   const router = useRouter();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => selectCurrentUser(state));
+  const user = useSelector(selectCurrentUser);
 
   const isAuthenticated = useMemo(() => !!user, [user]);
 

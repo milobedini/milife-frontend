@@ -1,2 +1,1 @@
-npx prettier . --write
-npm run lint
+npm run eslint && npm run prettier && npm run type-check

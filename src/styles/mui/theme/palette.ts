@@ -37,6 +37,7 @@ export const brixColors = {
   error: {
     main: '#CF6679'
   },
+  info: { main: '#000000' },
   gray: {
     main: '#E0E0E0',
     100: '#F5F5F5',
