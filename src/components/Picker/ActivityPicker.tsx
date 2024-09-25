@@ -1,14 +1,14 @@
+import { useMemo } from 'react';
 import { useGetTasksQuery, useGetUserTasksQuery } from 'src/graphql/task.api';
 import ScrollTop from '../ScrollToTop';
 import ActivityPickerCard from './ActivityPickerCard';
 
 function ActivityPicker() {
-  const { data: tasks, isError, isLoading } = useGetTasksQuery();
+  const { data: tasks, isError: tasksIsError, isLoading: tasksIsLoading } = useGetTasksQuery();
+  const { data: userTasks, isError: userTasksIsError, isLoading: userTasksIsLoading } = useGetUserTasksQuery();
 
-  const { data: userTasks } = useGetUserTasksQuery();
-
-  const sharedTasks = tasks?.filter((task) => userTasks?.some((userTask) => userTask.task.id === task.id));
-  console.log(sharedTasks);
+  const isLoading = useMemo(() => tasksIsLoading || userTasksIsLoading, [tasksIsLoading, userTasksIsLoading]);
+  const isError = useMemo(() => tasksIsError || userTasksIsError, [tasksIsError, userTasksIsError]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;

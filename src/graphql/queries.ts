@@ -66,6 +66,15 @@ export const queryMyTasks = gql`
   }
 `;
 
+export const queryTaskCompletions = gql`
+  ${Completions}
+  query MyCompletionsWithArgs($taskId: ID, $startDate: String, $endDate: String) {
+    userCompletions(taskId: $taskId, startDate: $startDate, endDate: $endDate) {
+      ...Completions
+    }
+  }
+`;
+
 /** Users. */
 export const queryMe = gql`
   ${DetailedUser}

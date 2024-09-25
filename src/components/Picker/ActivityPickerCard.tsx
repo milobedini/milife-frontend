@@ -20,7 +20,7 @@ function ActivityPickerCard({ task, saved }: ActivityPickerCardProps) {
       await addTask({ id: task.id });
       //   Do other stuff
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -29,7 +29,7 @@ function ActivityPickerCard({ task, saved }: ActivityPickerCardProps) {
       await removeTask({ id: task.id });
       //   Do other stuff
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

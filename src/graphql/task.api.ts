@@ -1,6 +1,13 @@
-import { MutationAddMyTaskArgs, MutationRemoveMyTaskArgs, Task, UserTask } from 'src/types/resolvers-types';
+import {
+  MutationAddMyTaskArgs,
+  MutationRemoveMyTaskArgs,
+  QueryUserCompletionsArgs,
+  Task,
+  TaskCompletion,
+  UserTask
+} from 'src/types/resolvers-types';
 import { baseApi } from './api';
-import { mutationAddTask, mutationRemoveTask, queryAllTasks, queryMyTasks } from './queries';
+import { mutationAddTask, mutationRemoveTask, queryAllTasks, queryMyTasks, queryTaskCompletions } from './queries';
 
 export const taskApi = baseApi.injectEndpoints({
   overrideExisting: false,
@@ -32,8 +39,21 @@ export const taskApi = baseApi.injectEndpoints({
         variables
       }),
       invalidatesTags: ['UserTasks']
+    }),
+    myTaskCompletions: builder.query<TaskCompletion[], QueryUserCompletionsArgs>({
+      query: () => ({
+        body: queryTaskCompletions
+      }),
+      providesTags: ['TaskCompletion'],
+      transformResponse: (response: { userCompletions: TaskCompletion[] }) => response.userCompletions
     })
   })
 });
 
-export const { useGetTasksQuery, useAddMyTaskMutation, useRemoveMyTaskMutation, useGetUserTasksQuery } = taskApi;
+export const {
+  useGetTasksQuery,
+  useAddMyTaskMutation,
+  useRemoveMyTaskMutation,
+  useGetUserTasksQuery,
+  useMyTaskCompletionsQuery
+} = taskApi;
