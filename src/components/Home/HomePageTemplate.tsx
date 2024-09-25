@@ -5,11 +5,8 @@ import imageConsistency from 'public/images/landing/consistency.webp';
 import imageFocus from 'public/images/landing/focus.webp';
 import imageGrowth from 'public/images/landing/growth.webp';
 import ScrollTop from 'src/components/ScrollToTop';
-import { useGetTasksQuery } from 'src/graphql/task.api';
 
 function HomePageTemplate() {
-  const { data } = useGetTasksQuery();
-  console.log(data);
   return (
     <div className="container py-4">
       {/* Top Panel */}
