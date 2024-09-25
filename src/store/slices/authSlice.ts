@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // src/store/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'src/store';
@@ -17,14 +18,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, { payload: { user, token } }: PayloadAction<{ user: User; token: string }>) =>
-      //   state.user = user;
-      //   state.token = token;
-      //   Equivalent without assignment to property of function parameter state, no-param-reassign rule
-      ({ ...state, user, token })
+    setCredentials: (state, { payload: { user, token } }: PayloadAction<{ user: User; token: string }>) => {
+      state.user = user;
+      state.token = token;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+    }
   }
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
 export const selectCurrentUser = (state: RootState) => state.auth.user;

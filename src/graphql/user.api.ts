@@ -30,19 +30,13 @@ export const userApi = baseApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           const { user, token } = data.login;
-
-          // Store in localStorage for persistence
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(user));
-          }
-
           dispatch(setCredentials({ user, token }));
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
     }),
+
     // Other User Routes
     me: builder.query<User, void>({
       query: () => ({

@@ -1,13 +1,49 @@
 import { gql } from 'graphql-request';
 
+/** Fragments. */
+export const GenericTasks = gql`
+  fragment GenericTasks on Task {
+    id
+    name
+    description
+  }
+`;
+
+export const Completions = gql`
+  fragment Completions on TaskCompletion {
+    id
+    date
+    completed
+    task {
+      name
+    }
+  }
+`;
+
+export const DetailedUser = gql`
+  ${Completions}
+  fragment DetailedUser on User {
+    id
+    name
+    email
+    tasks {
+      name
+      id
+    }
+    completions {
+      ...Completions
+    }
+  }
+`;
+
 /** Queries. */
 
 /** Tasks. */
 export const queryAllTasks = gql`
+  ${GenericTasks}
   query AllTasks {
     allTasks {
-      name
-      id
+      ...GenericTasks
     }
   }
 `;
@@ -38,21 +74,10 @@ export const queryMyTaskCompletions = gql`
 
 /** Users. */
 export const queryMe = gql`
+  ${DetailedUser}
   query Me {
     me {
-      name
-      id
-      email
-      tasks {
-        name
-        id
-      }
-      completions {
-        task {
-          name
-        }
-        date
-      }
+      ...DetailedUser
     }
   }
 `;
