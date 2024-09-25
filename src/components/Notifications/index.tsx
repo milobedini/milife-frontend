@@ -54,7 +54,7 @@ function Notifications() {
                 <div className="text-base">
                   {message}
                   {severity === 'error' && (
-                    <Link href="/contact-us" className="ml-1 underline">
+                    <Link href="/contact" className="ml-1 underline">
                       Contact us for more details.
                     </Link>
                   )}
